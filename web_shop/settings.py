@@ -25,7 +25,7 @@ SECRET_KEY = '92*#^$a4#gkar(2cib*^z-)mm2)+talvgo$w%xs%^r%@wlypd4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 CART_SESSION_ID = 'cart'
 
