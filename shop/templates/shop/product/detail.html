@@ -1,19 +1,85 @@
 {% extends "shop/base.html" %}
 {% load static %}
 {% block title %}
-    {% if category %}{{ category.title }}{% else %}Products{% endif %}
+    {% if category %}{{ category.name }} | MobiStore{% else %}Интернет магазин | MobiStore{% endif %}
 {% endblock %}
 {% block content %}
+<div class="container">
+    <h1>{{ product.name }}</h1>
     <div class="product-detail">
-        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
-        <h1>{{ product.name }}</h1>
-        <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
-        <p class="price">${{ product.price }}</p>
-        <form action="{% url "cart:cart_add" product.id %}" method="post">
-            {{ cart_product_form }}
-            {% csrf_token %}
-            <input type="submit" value="Add to cart">
-        </form>
-        {{ product.description|linebreaks }}
+        <div class="product_detail__promo">
+            <p>Наличие: Есть в наличии</p>
+            <div class="product_detail__img">
+                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+            </div>
+            <h3>Обзор товара</h3>
+            {{ product.description|linebreaks }}
+        </div>
+        <div class="product_detail__features">
+            <h2 class="price">{{ product.price }}р.</h2>
+            <div class="product_detail__form">
+                <form action="{% url "cart:cart_add" product.id %}" method="post">
+                    <div class="quantity">
+                        <button id='quantitySubtract' type="button">-</button>
+                        {{ cart_product_form.quantity }}
+                        <button id="quantityAdd" type="button">+</button>
+                    </div>
+                    {% csrf_token %}
+                    <input class="add_cart__btn" type="submit" value="В корзину">
+                </form>
+            </div>
+            <div class="product_detail__advantages">
+                <div class="detail_advantage">
+                    <img class="detail_advantage__img" src="{% static './img/ico_fast.png' %}" alt="">
+                    <h3 class="detail_advantage__title">Доставка</h3>
+                    <p class="detail_advantage__description">Срок доставки указан на каждом товаре</p>
+                </div>
+                <div class="detail_advantage">
+                    <img class="detail_advantage__img" src="{% static './img/ico_card.png' %}" alt="">
+                    <h3 class="detail_advantage__title">Оплата</h3>
+                    <p class="detail_advantage__description">Принимаем Qiwi, Сбербанк, Наличные, Visa, MasterCard.</p>
+                </div>
+                <div class="detail_advantage">
+                    <img class="detail_advantage__img" src="{% static './img/ico_mark.png' %}" alt="">
+                    <h3 class="detail_advantage__title">Гарантия</h3>
+                    <p class="detail_advantage__description">Гарантия практически на всю продукцию 1 год. Обмен возврат в течении 14 дней.</p>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+<script>
+    let quantityAdd = document.getElementById('quantityAdd');
+    let quantitySubtract = document.getElementById('quantitySubtract');
+    let quantityInp = document.getElementById('quantityInp');
+    quantityInp.addEventListener('input',function(){
+        if(quantityInp.value < 1){
+            quantityInp.value = 1;
+        }
+        else if(quantityInp.value > 100){
+            quantityInp.value = 100;
+        }
+        quantityInp.value = quantityInp.value.replace(/[^0-9]/g,'');
+    })
+    quantityAdd.addEventListener('click',function(){
+        quantityInp.value++;
+        if(quantityInp.value < 1){
+            quantityInp.value = 1;
+        }
+        else if(quantityInp.value > 100){
+            quantityInp.value = 100;
+        }
+    })
+    quantitySubtract.addEventListener('click',function(){
+        quantityInp.value--;
+        if(quantityInp.value < 1){
+            quantityInp.value = 1;
+        }
+        else if(quantityInp.value > 100){
+            quantityInp.value = 100;
+        }
+    })
+</script>
+
 {% endblock %}

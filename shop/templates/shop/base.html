@@ -3,8 +3,11 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>{% block title %}My shop{% endblock %}</title>
+    <title>{% block title %}Интернет магазин | MobiStore{% endblock %}</title>
     <link href="{% static "css/base.css" %}" rel="stylesheet">
+    <link href="{% static "css/shop.css" %}" rel="stylesheet">
+    <link href="{% static "css/cart.css" %}" rel="stylesheet">
+
 </head>
 <body>
 <div class="navbar">
@@ -15,16 +18,16 @@
             <li class="nav-item"><a href="#" class="nav-link">Оплата</a></li>
         </ul>
         <form action="#">
-            <button class="auth_btn">Авторизация</button>
+            <button class="auth_btn"><img src="{% static "img/ico_user.png" %}" alt="">  Авторизация</button>
         </form>
     </div>
     
 </div>
 <div id="header">
-        <div class="container">
+    <div class="container">
         <a href="/" class="logo"><img src="{% static "img/logo.png" %}" alt=""></a>
-        <a href="" class="adress">Полоцкая улица, 1Г, Донецк</a>
-        <p class="time">Пн-пт: 9:00 - 19:00 Сб-вс: 9:00 - 19:00</p>
+        <a href="" class="adress"><img src="{% static "img/ico_map.png" %}" alt=""> Полоцкая улица, 1Г, Донецк</a>
+        <p class="time"><img src="{% static "img/ico_clock.png" %}" alt=""> Пн-пт: 9:00 - 19:00 <img src="{% static "img/ico_clock.png" %}" alt=""> Сб-вс: 9:00 - 19:00</p>
         <p class="phone">
             +38(071)3389708 <br>
             <a href="#">Заказать звонок</a>
@@ -35,71 +38,47 @@
     <div class="container">
         <div class="catalog">
             Каталог товаров
+            <ul class="categories_list">
+                {% for c in categories %}
+                    <li class="categories_item">
+                        <a href="{{c.get_absolute_url}}" class="categories_link">{{c.name}}</a>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
-        <form class="search_form" action="#">
-            <input class='search_input' placeholder="Найдите свои товары здесь" type="text">
+        <form class="search_form" action="{% url "shop:product_search" %}">
+            <img class="search_form__icon" src="{% static "./img/ico_search.png" %}" alt="">
+            <input class='search_input' placeholder="Найдите свои товары здесь" name='q' type="text">
         </form>
-        <div class="cart">
-            {% with total_items=cart|length %}
-                {% if cart|length > 0 %}
-                    Your cart:
-                    <a href="{% url "cart:cart_detail" %}">
-                        {{ total_items }} item{{ total_items|pluralize }},
-                        {{ cart.get_total_price }}руб.
-                    </a>
-                {% else %}
-                    0 руб.
-                {% endif %}
-            {% endwith %}
+        <div class="cart_bar">
+            <a href="{% url "cart:cart_detail" %}">
+                {% with total_items=cart|length %}
+                    {% if cart|length > 0 %}
+                        <div class="cart_bar__icon">
+                            <img src="{% static "./img/ico_shop.png" %}" alt="">
+                            <span class="cart_bar__counter">{{ total_items }}</span>
+                        </div>
+                            {{ cart.get_total_price }}руб.
+                    {% else %}
+                        0 руб.
+                    {% endif %}
+                {% endwith %}
+            </a>
         </div>
     </div>
 </div>
-<div id="content">
-    <div class="container">
-        <div class="promo">
-            <div class="baner">
-                <img src="{% static "img/promo_baner1.png" %}" alt="">
-            </div>
-            <div class="baner">
-                <img src="{% static "img/promo_baner2.png" %}" alt="">
-            </div>
-        </div>
-        <div class="advantages">
-            <div class="advantage">
-                <img src="" alt="">
-                <h3>Lorem, ipsum.</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt, odit.</p>
-            </div>
-            <div class="advantage">
-                <img src="" alt="">
-                <h3>Lorem, ipsum.</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt, odit.</p>
-            </div>
-            <div class="advantage">
-                <img src="" alt="">
-                <h3>Lorem, ipsum.</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt, odit.</p>
-            </div>
-            <div class="advantage">
-                <img src="" alt="">
-                <h3>Lorem, ipsum.</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt, odit.</p>
-            </div>
-        </div>
-    </div>
-    
     {% block content %}
     {% endblock %}
 </div>
 <footer>
     <div class="container">
         <div class="footer__main">
-            <div class="contacts">
-                <p class="contscts__phone">+38(071)3389708</p>
+            <div class="footer__col contacts">
+                <p class="contacts__phone">+38(071)3389708</p>
                 <button class="contacts__write_us">Написать нам</button>
-                <p class="adress">Полоцкая улица, 1Г, Донецк</p>
+                <p><a class="adress" href="#">Полоцкая улица, 1Г, Донецк</a></p>
             </div>
-            <div class="info">
+            <div class="footer__col info">
                 <h4>Информация:</h4>
                 <ul class="info_list">
                     <li class="info_item"><a href="#" class="info_link">Гарантия</a></li>
@@ -110,15 +89,15 @@
             </div>
             <div class="time">
                 <h4>Время работы:</h4>
-                <p>Пн-пт: 9:00 - 19:00</p>
-                <p>Сб-вс: 9:00 - 19:00</p>
+                <p class="time_clock"><img src="{% static "img/ico_clock.png" %}" alt=""> Пн-пт: 9:00 - 19:00</p>
+                <p class="time_clock"><img src="{% static "img/ico_clock.png" %}" alt=""> Сб-вс: 9:00 - 19:00</p>
                 <h4>Мы в социальных сетях</h4>
                 <div class="socials">
                     <a href="" class="">
-                        <img src="" alt="вк">
+                        <img src="{% static "img/ico_vk.png" %}" alt="вк">
                     </a>
                     <a href="" class="">
-                        <img src="" alt="инстаграмм">
+                        <img src="{% static "img/ico_inst.png" %}" alt="инстаграмм">
                     </a>
                 </div>
             </div>
@@ -126,8 +105,8 @@
                 <a href="/" class="logo"><img src="{% static "img/logo.png" %}" alt=""></a>
             </div>
         </div>
-        <div class="footer__copyrights"><p>MobiStore 2021 Все права защищены. Разработано <a href="http://sos-computer.site">Сос Компьютер</a></p></div>
     </div>
+    <div class="footer__copyrights"><p>MobiStore 2021 Все права защищены. Разработано <a href="http://sos-computer.site">Сос Компьютер</a></p></div>
 </footer>
 </body>
 </html>
