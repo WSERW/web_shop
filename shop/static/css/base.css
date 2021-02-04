@@ -50,16 +50,11 @@ a{
     display: flex;
 }
 .nav-item{
-    /* display: inline-block; */
     padding: 20px 10px;
-    border-left: 1px solid #000;
-    border-right: 1px solid #000;
+    border-left: 2px solid #888;
 }
 .nav-item:first-child{
     border-left: none;
-}
-.nav-item:last-child{
-    border-right: none;
 }
 .nav-link{
     padding: 20px 10px;
@@ -168,6 +163,33 @@ footer .logo a{
 
 .catalog{
     position: relative;
+}
+.catalog_burger{
+    vertical-align: top;
+    width: 25px;
+    height: 2px;
+    display: inline-block;
+    background-color: #fff;
+    position: relative;
+    top: 3px;
+}
+.catalog_burger::before, .catalog_burger::after{
+    content: '';
+    width: 16px;
+    height: 2px;
+    display: block;
+    background-color: #fff;
+    position: relative;
+    top: 7px;
+    transition: 0.3s;
+}
+.catalog_burger::after{
+    top: 12px;
+    width: 7px;
+}
+.catalog:hover .catalog_burger::before,
+.catalog:hover .catalog_burger::after{
+    width: 25px;
 }
 .catalog:hover .categories_list{
     display: block;

@@ -62,7 +62,7 @@
             {% for product in products %}
                 <div class="product_item">
                     <a href="{{ product.get_absolute_url }}">
-                        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                            <img src="{{ product.get_title_image.image.url }}" alt='{{ product.name }}'>
                     </a>
                     <a href="{{ product.get_absolute_url }}">
                         <p class="product_item__name">{{ product.name }}</p>
@@ -110,12 +110,14 @@
             }
         })
         window.addEventListener('mouseup', function(e){
-            wrapper.style.transition = '0.3s';
-            let coords = {x:0,y:0};
-            drag = false;
-            if(sliderTranslation > 80)  nextSlide();
-            else if(sliderTranslation < -80)    prevSlide();
-            interval = setInterval(nextSlide,3000);
+            if(drag == true){
+                wrapper.style.transition = '0.3s';
+                let coords = {x:0,y:0};
+                drag = false;
+                if(sliderTranslation > 80)  nextSlide();
+                else if(sliderTranslation < -80)    prevSlide();
+                interval = setInterval(nextSlide,3000);
+            }
         })
         let interval = setInterval(nextSlide,3000);
     </script>
