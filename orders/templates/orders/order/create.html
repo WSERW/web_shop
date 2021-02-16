@@ -1,18 +1,86 @@
 {% extends "shop/base.html" %}
-
-{% block title %}Checkout{% endblock %}
-
+{% load static %}
+{% block title %}
+    Оформление заказа
+{% endblock %}
 {% block content %}
-    <h1>Checkout</h1>
-    <div class="order-info">
+    <div class="container">
+        <h1>Оформление заказа</h1>
+        <div class="order_info">
+        <div class="order__cart">
+            <h2 class="order_info__title">Ваш заказ</h2>
+            <div class="order__item_list">
+                {% for item in cart %}
+                    {% with product=item.product %}
+                    <div class="order__item">
+                        <div class="order__item_img">
+                            <a href="{{ product.get_absolute_url }}">
+                                <img src="
+                                    {% if product.get_title_image %}
+                                        {{ product.get_title_image.image.url }}
+                                    {% else %}
+                                        {% static "img/no_image.png" %}
+                                    {% endif %}">
+                            </a>
+                        </div>
+                        <div class="order__item_name">
+                            {{ product.name }}
+                        </div>
+                        <div class="order__item_quantity">
+                            {{ item.quantity }}
+                        </div>
+                        <div class="order__item_cost">
+                            <p>Стоимость: {{ item.total_price }}р.</p>
+                            <p>Цена за ед.: {{ item.price }}р.</p>
+                        </div>
+                        <a class="order__item_remove" href="{% url "cart:cart_remove" product.id%}">
+                            <img src="{% static './img/delete.png' %}" alt="">
+                        </a>
+                    </div>
+                    {% endwith %}
+                {% endfor %}
+                </div>
+            </div>
+            <div class="order__delivery">
+                <h2 class="order_info__title">Способ оплаты</h2>
+                <h3>Бесплатная доставка</h3>
+                <input type="radio" name="delivery_way" id="freeDelivery">
+                <label for="freeDelivery">Бесплатная доставка - 0р.</label>
+                <h3>Бесплатная доставка</h3>
+                <input type="radio" name="delivery_way" id="selfDelivery">
+                <label for="selfDelivery">Самовывоз из магазина - 0р.</label>
+                <h3>Бесплатная доставка</h3>
+                <input type="radio" name="delivery_way" id="payDeliveru">
+                <label for="payDeliveru">Доставка с фиксированной стоимостью - 100р.</label>
+            </div>
+            <div class="order__shoper_credits">
+                <h2 class="order_info__title">Покупатель</h2>
+                <label for="shoperName">Ваше имя</label>
+                <input class="order_control" placeholder="Имя" type="text" name="shoper_name" id="shoperName"> <br>
+                <label for="shoperPhone">Ваш телефон</label>
+                <input class="order_control" placeholder="Телефон" type="text" name="shoper_phone" id="shoperPhone">
+            </div>
+            <div class="order__delivery_credits">
+                <h2 class="order_info__title">Адрес доставки</h2>
+                <label for="shoperCity">Город</label>
+                <input class="order_control" placeholder="Город" type="text" name="shoper_city" id="shoperCity"> <br>
+                <label for="shoperAdress">Адрес</label>
+                <input class="order_control" placeholder="Адрес" type="text" name="shoper_adress" id="shoperAdress">
+            </div>
+            <div class="order__coment">
+                <h2 class="order_info__title">Комментарий</h2>
+                <textarea name="" id="" cols="30" rows="10" placeholder="Комментарий" ></textarea>
+            </div>
+        </div>
+        <div class="order__create">
+            <button class="order__create_btn">Оформить заказ</button>
+        </div>
+    </div>
+{% comment %} 
+        <div class="order-info">
         <h3>Your order</h3>
         <ul>
-            {% for item in cart %}
-                <li>
-                    {{ item.quantity }}x {{ item.product.name }}
-                    <span>${{ item.total_price }}</span>
-                </li>
-            {% endfor %}
+           
         </ul>
         <p>Total: ${{ cart.get_total_price }}</p>
     </div>
@@ -20,5 +88,5 @@
         {{ form.as_p }}
         <p><input type="submit" value="Place order"></p>
         {% csrf_token %}
-    </form>
+    </form> {% endcomment %}
 {% endblock %}

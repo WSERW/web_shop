@@ -1,7 +1,7 @@
 {% extends "shop/base.html" %}
 {% load static %}
 {% block title %}
-    {% if category %}{{ category.name }} | MobiStore{% else %}Интернет магазин | MobiStore{% endif %}
+    {{product.name}} | Интернет магазин | MobiStore
 {% endblock %}
 {% block content %}
 <div class="container">
@@ -21,7 +21,10 @@
             {{ product.description|linebreaks }}
         </div>
         <div class="product_detail__features">
-            <h2 class="price">{{ product.price }}р.</h2>
+            <div class="product_detail__price">
+                <h2 class="price">{{ product.price }}р.</h2>
+                <p class="chipper">Нашли дешевле?</p>
+            </div>
             <div class="product_detail__form">
                 <form action="{% url "cart:cart_add" product.id %}" method="post">
                     <div class="quantity">

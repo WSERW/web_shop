@@ -18,6 +18,8 @@
                 </div>
             </div>
         </div>
+        {% if not category %}
+
         <div class="advantages">
             <div class="advantage">
                 <img src="{% static "./img/ico_fast.png" %}" alt="">
@@ -40,21 +42,27 @@
                 <p>Нам можно смело писать в любое время и получить ответ</p>
             </div>
         </div>
+        {% endif %}
     </div>
+    {% if not category %}
+
     <div id="sidebar">
         <div class="container">
             <h3>Популярные:</h3>
             <div class='categories'>
                 {% for c in categories %}
-                    <div class="category" {%if category.slug == c.slug %}class="category selected"{% endif %}>
-                        <img class="category__img" src="{% if c.image %}{{ c.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
-                        <a class="category__name" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-                        <a class="category__link" href="{{ c.get_absolute_url }}">Смотреть все</a>
-                    </div>
+                    {% if c.parent == None %}
+                        <div class="category" {%if category.slug == c.slug %}class="category selected"{% endif %}>
+                            <img class="category__img" src="{% if c.image %}{{ c.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                            <a class="category__name" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                            <a class="category__link" href="{{ c.get_absolute_url }}">Смотреть все</a>
+                        </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
     </div>
+    {% endif %}
     <div id="main" class="product-list">
         <div class="container">
         <h3>{% if category %}{{ category.name }}{% else %}Рекомендуемые:{% endif %}</h3>
@@ -114,8 +122,12 @@
                 wrapper.style.transition = '0.3s';
                 let coords = {x:0,y:0};
                 drag = false;
-                if(sliderTranslation > 80)  nextSlide();
-                else if(sliderTranslation < -80)    prevSlide();
+                if(sliderTranslation > 80)  nextSlide()
+                else if(sliderTranslation < -80)    prevSlide()
+                else{
+                    let translation = `translate(calc(-${slideCounter}00%))`;
+                    wrapper.style.transform = translation;
+                }
                 interval = setInterval(nextSlide,3000);
             }
         })

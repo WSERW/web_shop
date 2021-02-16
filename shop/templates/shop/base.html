@@ -38,13 +38,26 @@
 <div id="subheader">
     <div class="container">
         <div class="catalog">
-            <span class="catalog_burger"></span>
-            Каталог товаров
-            <ul class="categories_list">
+            <span class="catalog__burger"></span>
+            <span class="catalog__title">Каталог товаров</span>
+            <span class="catalog__wrapper"></span>
+            <ul class="categories__list">
                 {% for c in categories %}
-                    <li class="categories_item">
-                        <a href="{{c.get_absolute_url}}" class="categories_link">{{c.name}}</a>
-                    </li>
+                    {% if c.parent == None %}
+                        <li class="categories__item">
+                            <a href="{{c.get_absolute_url}}" class="categories__link">{{c.name}}</a>
+                            <div class="categories__item_subs">
+                                {% for sub_c in c.get_sub_categories %}
+                                    <div class="categories__item_sub">
+                                        <a href="{{sub_c.get_absolute_url}}">
+                                            <img class="categories_sub_img" src="{% if sub_c.image %}{{ sub_c.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                                        </a>
+                                        <a href="{{sub_c.get_absolute_url}}">{{sub_c.name}}</a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>
@@ -55,15 +68,11 @@
         <div class="cart_bar">
             <a href="{% url "cart:cart_detail" %}">
                 {% with total_items=cart|length %}
-                    {% if cart|length > 0 %}
-                        <div class="cart_bar__icon">
-                            <img src="{% static "./img/ico_shop.png" %}" alt="">
-                            <span class="cart_bar__counter">{{ total_items }}</span>
-                        </div>
-                            {{ cart.get_total_price }}руб.
-                    {% else %}
-                        0 руб.
-                    {% endif %}
+                    <div class="cart_bar__icon">
+                        <img src="{% static "./img/ico_shop.png" %}" alt="">
+                        <span class="cart_bar__counter">{{ total_items }}</span>
+                    </div>
+                        {{ cart.get_total_price }}руб.
                 {% endwith %}
             </a>
         </div>
@@ -95,10 +104,10 @@
                 <p class="time_clock"><img src="{% static "img/ico_clock.png" %}" alt=""> Сб-вс: 9:00 - 19:00</p>
                 <h4>Мы в социальных сетях</h4>
                 <div class="socials">
-                    <a href="" class="">
+                    <a href="https://vk.com/mobistore_dn" class="">
                         <img src="{% static "img/ico_vk.png" %}" alt="вк">
                     </a>
-                    <a href="" class="">
+                    <a href="https://www.instagram.com/mobistore_donetsk" class="">
                         <img src="{% static "img/ico_inst.png" %}" alt="инстаграмм">
                     </a>
                 </div>
@@ -110,5 +119,41 @@
     </div>
     <div class="footer__copyrights"><p>MobiStore 2021 Все права защищены. Разработано <a href="http://sos-computer.site">Сос Компьютер</a></p></div>
 </footer>
+<div class="modal__form">
+    <div class="modal__content">
+        <div class="modal__header">
+            <h2>Обратный звонок</h2>
+            <button class="modal__close_btn">
+                <span class="modal__close_icon"></span>
+            </button>
+        </div>
+        <div class="modal__body">
+            <form action="">
+                <input type="text" placeholder="Ваше имя">
+                <input type="text" placeholder="Ваш телефон">
+                <div class="perc_rights_block">
+                    <input type="checkbox" id="perc_rights"><label for="perc_rights">Я прочитал <a href="#">Политика безопасности</a> и согласен с условиями</label>
+                </div>
+                <button>Отправить</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    let modalForm = document.querySelector('.modal__form');
+    let modalClose = document.querySelector('.modal__close_btn');
+    let modalBtn = document.querySelector('.contacts__write_us')
+    modalBtn.addEventListener('click',function(){
+        modalForm.style.display = 'block';
+    })
+    modalClose.addEventListener('click',function(e){
+            modalForm.style.display = 'none';
+    })
+    modalForm.addEventListener('click',function(e){
+        if(e.target == modalForm){
+            modalForm.style.display = 'none';
+        }
+    })
+</script>
 </body>
 </html>
