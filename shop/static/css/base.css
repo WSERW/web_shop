@@ -225,6 +225,7 @@ footer .logo a{
     display: none;
     opacity: 0;
     transition: 0.3s;
+    z-index: 9999;
 }
 .categories__item{
     border-top: 1px solid #fff;
@@ -299,6 +300,7 @@ footer .logo a{
     position: absolute;
     height: 340px;
     width: 540px;
+    max-width: 100%;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -342,6 +344,7 @@ footer .logo a{
     margin-bottom: 20px;
 }
 .perc_rights_block label{
+    margin-left: 10px;
     user-select: none;
     font-size: 14px;
 }

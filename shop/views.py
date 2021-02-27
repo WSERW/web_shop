@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from django.db.models import Q
+from django.db.models import Q,CharField
+from django.db.models.functions import Lower
 from .models import Category, Product, ProductImage
 from cart.forms import CartAddProductForm
 
@@ -28,8 +29,9 @@ def product_detail(request, id, slug):
 
 def product_search(request):
     category = None
+    query = request.GET.get('q')
     categories = Category.objects.all()
-    products = Product.objects.filter(name__contains=request.GET.get('q'))
+    products = Product.objects.filter(Q(name__icontains=query) | Q(category__name__icontains=query))
     return render(request, 'shop/product/search.html', {'category':category,
                                                     'categories':categories,
                                                     'products':products})

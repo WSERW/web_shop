@@ -31,7 +31,7 @@
         <p class="time"><img src="{% static "img/ico_clock.png" %}" alt=""> Пн-пт: 9:00 - 19:00 <img src="{% static "img/ico_clock.png" %}" alt=""> Сб-вс: 9:00 - 19:00</p>
         <p class="phone">
             +38(071)3389708 <br>
-            <a href="#">Заказать звонок</a>
+            <a href="#" class="write_us_triger" >Заказать звонок</a>
         </p>
     </div>
 </div>
@@ -86,7 +86,7 @@
         <div class="footer__main">
             <div class="footer__col contacts">
                 <p class="contacts__phone">+38(071)3389708</p>
-                <button class="contacts__write_us">Написать нам</button>
+                <button class="contacts__write_us write_us_triger">Написать нам</button>
                 <p><a class="adress" href="#">Полоцкая улица, 1Г, Донецк</a></p>
             </div>
             <div class="footer__col info">
@@ -142,9 +142,11 @@
 <script>
     let modalForm = document.querySelector('.modal__form');
     let modalClose = document.querySelector('.modal__close_btn');
-    let modalBtn = document.querySelector('.contacts__write_us')
-    modalBtn.addEventListener('click',function(){
-        modalForm.style.display = 'block';
+    let modalBtns = document.querySelectorAll('.write_us_triger')
+    modalBtns.forEach(function(btn){
+        btn.addEventListener('click',function(){
+            modalForm.style.display = 'block';
+        })
     })
     modalClose.addEventListener('click',function(e){
             modalForm.style.display = 'none';
