@@ -166,13 +166,16 @@
 textarea.order_control{
     resize: none;
     border-radius: 20px;
+    box-sizing: border-box;
 }
 .order__create{
-    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    grid-row-start: 5;
 }
 @media (max-width:1000px){
     .order_info{
-        grid-template-rows:1fr 320px;
+        grid-template-rows:1fr 320px 220px 220px 320px 50px;
         grid-auto-rows: 220px;
         grid-template-columns: 1fr;
     }
@@ -180,7 +183,9 @@ textarea.order_control{
         max-height: 400px;
     }
     .order__create{
-        text-align: center;
+        justify-content: center;
+        grid-row-start: 6;
+        height: 100px;
     }
     .product-detail{
         flex-direction: column;
@@ -203,5 +208,8 @@ textarea.order_control{
 @media screen and (max-width:600px){
     .order_control{
         width: auto;
+    }
+    textarea.order_control{
+        width: 100%;
     }
 }

@@ -51,7 +51,8 @@ class Product(models.Model):
                         args=[self.id, self.slug])
 
     def get_title_image(self):
-        return ProductImage.objects.filter(product=self)[0]
+        if ProductImage.objects.filter(product=self).count() > 0:
+            return ProductImage.objects.filter(product=self)[0]
 
     def get_images(self):
         return ProductImage.objects.filter(product=self)

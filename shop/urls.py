@@ -9,9 +9,9 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$',
         views.product_detail,
         name='product_detail'),
-    url(r'^/search$', views.product_search, name='product_search'),
-    url(r'^/pay$', views.pay, name='shop_pay'),
-    url(r'^/garant$', views.garant, name='shop_garant'),
-    url(r'^/delivery$', views.delivery, name='shop_delivery'),
+    url(r'^search$', views.product_search, name='product_search'),
+    url(r'^pay$', views.pay, name='shop_pay'),
+    url(r'^garant$', views.garant, name='shop_garant'),
+    url(r'^delivery$', views.delivery, name='shop_delivery'),
     
 ]

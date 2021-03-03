@@ -490,3 +490,11 @@ h1{
         display: none;
     }
 }
+@media screen and (max-width: 400px){
+    .modal__content{
+        height: auto;
+    }
+    .modal__close_btn{
+        padding: 10px;
+    }
+}

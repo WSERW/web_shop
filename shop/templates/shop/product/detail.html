@@ -16,7 +16,7 @@
             {% endif %}
             </p>
             <div class="product_detail__img">
-                <img src="{{ product.get_title_image.image.url }}" alt='{{ product.name }}'>
+                <img src="{% if product.get_title_image.image %}{{ product.get_title_image.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" alt='{{ product.name }}'>
             </div>
             <div class="product_detail__minimap">
                 {% for image in product.get_images %}
