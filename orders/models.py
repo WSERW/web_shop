@@ -4,12 +4,21 @@ from shop.models import Product
 # Create your models here.
 
 class Order(models.Model):
+    DELIVERY_CHOICES = [
+        ('FREE', 'Бесплатная доставка'),
+        ('SELF', 'Саамовывоз'),
+        ('PAID', 'Доставка с оплатной'),
+    ]
     first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email = models.EmailField()
+    phone = models.CharField(max_length=12)
     address = models.CharField(max_length=250)
-    postal_code = models.CharField(max_length=20)
     city = models.CharField(max_length=100)
+    delivery_way = models.CharField(
+        max_length=4,
+        choices=DELIVERY_CHOICES,
+        default='FREE',
+    )
+    comment = models.TextField(max_length=300)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
@@ -36,4 +45,18 @@ class OrderItem(models.Model):
         return '{}'.format(self.id)
 
     def get_cost(self):
-        return self.pricr * self.quantity
+        return self.price * self.quantity
+
+class CallRequest(models.Model):
+    name = models.CharField(max_length=50)
+    phone = models.CharField(max_length=12)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+            ordering = ('-created',)
+            verbose_name = 'Заявка'
+            verbose_name_plural = 'Заявки'
+
+    def __str__(self):
+            return 'Request {}'.format(self.id)

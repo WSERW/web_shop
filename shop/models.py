@@ -1,3 +1,4 @@
+# import ValidationError
 from django.db import models
 from django.urls import reverse
 # Create your models here.
@@ -6,7 +7,7 @@ class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
     image = models.ImageField(upload_to='categories/', blank=True)
-    parent = models.ForeignKey('self', blank = True, null = True, related_name="children", on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', blank=True, null=True, related_name="children", on_delete=models.CASCADE)
 
     class Meta:
         ordering = ('name',)
@@ -60,4 +61,3 @@ class Product(models.Model):
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, default=None, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
-    

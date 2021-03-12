@@ -7,17 +7,28 @@
 <div id="content">
     <div class="container">
         <div class="promo">
+            {% if baner %}
             <div class="baner baner_big">
-                <img src="{% static "./img/promo_baner1.png" %}" alt="">
+                <a href="{% if baner.product %}{{ baner.product.get_ubsolute_url }}{% else %}#{% endif %}">
+                    <img src="{{baner.image.url}}" alt="">
+                    {{baner.name}}
+                </a>
             </div>
+            {% endif %}
+            {% if slider %}
             <div class="baner baner_small baner_slider">
                 <div class="slider_wrapper">
-                    <img src="{% static "./img/promo_baner2.png" %}" alt="">
-                    <img src="{% static "./img/promo_baner2.png" %}" alt="">
-                    <img src="{% static "./img/promo_baner2.png" %}" alt="">
+                {{slider.image.url}}
+                {% for slide in slider.get_slides %}
+                    <a href="{% if slide.product %}{{ slide.product.get_absolute_url }}{% else %}#{% endif %}">
+                        <img src="{% if slide.image %}{{ slide.image.url }}{% else %}{% static './img/promo_baner1.png' %}{% endif %}" alt="slide.product.name">
+                    </a>
+                {% endfor %}
                 </div>
             </div>
+            {% endif %}
         </div>
+
         {% if not category %}
 
         <div class="advantages">

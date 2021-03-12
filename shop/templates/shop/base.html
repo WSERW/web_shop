@@ -128,12 +128,13 @@
             </button>
         </div>
         <div class="modal__body">
-            <form action="">
-                <input type="text" placeholder="Ваше имя">
-                <input type="text" placeholder="Ваш телефон">
+            <form>
+                <input type="text" placeholder="Ваше имя" name='name'>
+                <input type="text" placeholder="Ваш телефон" name='phone'>
                 <div class="perc_rights_block">
-                    <input type="checkbox" id="perc_rights"><label for="perc_rights">Я прочитал <a href="#">Политика безопасности</a> и согласен с условиями</label>
+                    <input type="checkbox" id="perc_rights" name='license'><label for="perc_rights" >Я прочитал <a href="#">Политика безопасности</a> и согласен с условиями</label>
                 </div>
+                {% csrf_token %}
                 <button>Отправить</button>
             </form>
         </div>
@@ -155,6 +156,24 @@
         if(e.target == modalForm){
             modalForm.style.display = 'none';
         }
+    })
+    modalForm.querySelector('form').addEventListener('submit',async function(e){
+        e.preventDefault();
+        formData = new FormData(modalForm.querySelector('form'))
+        //data.append('csrfmiddlewaretoken', $('#csrf-helper input[name="csrfmiddlewaretoken"]').attr('value'));
+        console.dir(formData)
+        let response = await fetch('./orders/create_request/', {
+        method: 'POST',
+        body: formData,
+        credentials: 'same-origin',
+        });
+
+        let result = await response.json();
+        if(result.status == true){
+            modalForm.style.display = 'none';
+        }
+        alert(result.text)
+
     })
 </script>
 </body>
