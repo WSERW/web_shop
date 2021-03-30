@@ -433,7 +433,7 @@ h1{
     font-size: 20px;
     margin-bottom: 50px;
     box-shadow: 0px 0px 20px 1px #ccc;
-    max-height: 100vh;
+    /* max-height: 100vh; */
     min-height: 600px;
     background-color: #fff;
 }
@@ -442,9 +442,12 @@ h1{
     /* color: #494949; */
 }
 
-@media screen and (max-width: 1100px){
-    .advantages,.categories,.product_list{
+@media screen and (max-width: 1200px){
+    .advantages{
         justify-content: space-evenly;
+    }
+    .categories,.product_list{
+        grid-template-columns: repeat(3,270px);
     }
 }
 
@@ -478,6 +481,7 @@ h1{
 
 @media screen and (max-width: 900px){
     .categories,.product_list{
+        grid-template-columns: repeat(2,270px);
         justify-content: space-evenly;
     }
     .advantages{
@@ -486,9 +490,12 @@ h1{
 }
 
 @media screen and (max-width: 600px){
-    .advantages,.categories,.product_list{
+    .advantages{
         justify-content: center;
         flex-wrap: wrap;
+    }
+    .categories,.product_list{
+        grid-template-columns: 270px;
     }
     .catalog__title{
         display: none;

@@ -11,7 +11,6 @@
             <div class="baner baner_big">
                 <a href="{% if baner.product %}{{ baner.product.get_ubsolute_url }}{% else %}#{% endif %}">
                     <img src="{{baner.image.url}}" alt="">
-                    {{baner.name}}
                 </a>
             </div>
             {% endif %}
