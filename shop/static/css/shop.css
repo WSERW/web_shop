@@ -441,7 +441,12 @@ h1{
     margin-bottom: 20px;
     /* color: #494949; */
 }
-
+@media screen and (max-width: 1420px){
+    .categories__item_subs{
+        width: calc(95vw - 320px);
+        flex-wrap: wrap;
+    }
+}
 @media screen and (max-width: 1200px){
     .advantages{
         justify-content: space-evenly;
@@ -452,6 +457,9 @@ h1{
 }
 
 @media screen and (max-width: 1000px){
+    .categories__list{
+        width: 200px;
+    }
     #header .time{
         display: none;
     }
@@ -490,6 +498,9 @@ h1{
 }
 
 @media screen and (max-width: 600px){
+    .categories__item_sub img{
+        display: none;
+    }
     .advantages{
         justify-content: center;
         flex-wrap: wrap;
