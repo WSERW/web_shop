@@ -502,7 +502,13 @@ h1{
     .categories__item_sub img{
         display: none;
     }
+    .categories__item_subs{
+        flex-direction: column;
+    }
     .categories__item_sub{
+        white-space: wrap;
+        max-width: 200px;
+        margin-bottom: 10px;
         height: auto;
     }
     .advantages{
@@ -530,7 +536,8 @@ h1{
         padding: 10px;
     }
     .categories__item_sub{
-        width: 100px;
+        width: auto;
+        max-width: 100px;
     }
     .categories__item_subs{
         width: auto;
