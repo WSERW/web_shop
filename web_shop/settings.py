@@ -24,7 +24,9 @@ SECRET_KEY = '92*#^$a4#gkar(2cib*^z-)mm2)+talvgo$w%xs%^r%@wlypd4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mobi-store.site','www.mobi-store.site']
+ALLOWED_HOSTS = ['mobi-store.site', 'www.mobi-store.site']
+# ALLOWED_HOSTS = ['*']
+
 
 CART_SESSION_ID = 'cart'
 

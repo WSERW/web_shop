@@ -228,6 +228,8 @@ footer .logo a{
     z-index: 9999;
 }
 .categories__item{
+    position: relative;
+    padding: 15px 90px 15px 40px;
     border-top: 1px solid #fff;
 }
 .categories__item:last-child{
@@ -237,15 +239,19 @@ footer .logo a{
     position: absolute;
     top: 0;
     width: 1080px;
-    height: 100%;
+    min-height: 100%;
     right: 0;
     transform: translate(100%);
     background-color: #24212b;
     display: none;
     z-index: 700;
+    flex-wrap: wrap;
+    transition-delay: 0.3s;
 }
 .categories__item:hover .categories__item_subs{
     display: flex;
+    transition-delay: 0.3s;
+
 }
 .categories__item_sub{
     display: flex;
@@ -254,7 +260,7 @@ footer .logo a{
     align-items: center;
     text-align: center;
     width: 250px;
-    height: 100%;
+    height: 250px;
     background-color: #24212b;
     color: white;
     z-index: 701;
@@ -263,19 +269,16 @@ footer .logo a{
     height: 100px;
 }
 .categories__link{
-    position: relative;
     color: #fff;
     text-decoration: none;
     display: inline-block;
-    padding: 15px 90px 15px 40px;
     box-sizing: border-box;
-    width: 100%;
     transition: 0.3s;
 }
 .categories__link:hover{
-    box-shadow: 0 0 15px 1px #fff;
+    text-shadow: 0 0 5px #fff;
 }
-.categories__link::before{
+.categories__item.parent::before{
     content: '>';
     color: #fff;
     display: block;

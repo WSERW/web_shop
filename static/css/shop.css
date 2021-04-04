@@ -87,13 +87,14 @@
     flex: 1 0 31%;
 }
 .baner a{
+    display: block;
     flex: 1 0 100%;
     width: 100%;
     height: 100%;
 }
 .baner img{
-    max-width: 100%;
-    height: auto;
+    width: 100%;
+    height: 100%;
 }
 .baner_slider{
     /* display: flex; */
@@ -501,6 +502,9 @@ h1{
     .categories__item_sub img{
         display: none;
     }
+    .categories__item_sub{
+        height: auto;
+    }
     .advantages{
         justify-content: center;
         flex-wrap: wrap;
@@ -524,5 +528,11 @@ h1{
     }
     .modal__close_btn{
         padding: 10px;
+    }
+    .categories__item_sub{
+        width: 100px;
+    }
+    .categories__item_subs{
+        width: auto;
     }
 }

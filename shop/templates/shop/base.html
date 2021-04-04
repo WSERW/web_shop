@@ -46,18 +46,20 @@
             <ul class="categories__list">
                 {% for c in categories %}
                     {% if c.parent == None %}
-                        <li class="categories__item">
+                        <li class="categories__item  {% if c.get_sub_categories %}parent{% endif %}">
                             <a href="{{c.get_absolute_url}}" class="categories__link">{{c.name}}</a>
-                            <div class="categories__item_subs">
-                                {% for sub_c in c.get_sub_categories %}
-                                    <div class="categories__item_sub">
-                                        <a href="{{sub_c.get_absolute_url}}">
-                                            <img class="categories_sub_img" src="{% if sub_c.image %}{{ sub_c.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
-                                        </a>
-                                        <a href="{{sub_c.get_absolute_url}}">{{sub_c.name}}</a>
-                                    </div>
-                                {% endfor %}
-                            </div>
+                            {% if c.get_sub_categories %}
+                                <div class="categories__item_subs">
+                                    {% for sub_c in c.get_sub_categories %}
+                                        <div class="categories__item_sub">
+                                            <a href="{{sub_c.get_absolute_url}}">
+                                                <img class="categories_sub_img" src="{% if sub_c.image %}{{ sub_c.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                                            </a>
+                                            <a href="{{sub_c.get_absolute_url}}">{{sub_c.name}}</a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </li>
                     {% endif %}
                 {% endfor %}
